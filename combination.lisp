@@ -1,0 +1,13 @@
+(defun combination (n lst)
+  (labels ((combine-1 (n lst)
+	     (if (eql 1 n)
+		 (list (list (car lst)))
+		 (mapcar #'(lambda (x) (cons (car lst) x))
+			 (combination (1- n) (cdr lst)))))
+	   (combine (n lst acc)
+	     (if (eql n (length lst)) (nreverse (push lst acc))
+		 (combine n (cdr lst)
+			  (append (nreverse (combine-1 n lst)) acc)))))
+    (combine n lst nil)))
+
+(combination 7 '(a b c d e f g h i j k l m n o p q r s t u v w x y z))
